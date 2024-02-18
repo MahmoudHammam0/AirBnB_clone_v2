@@ -23,13 +23,25 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, line):
         '''Creates a new instance of BaseModel, saves it (to the JSON file)'''
-        if line == '':
+        line = line.replace('"','')
+        args = line.split()
+        if args[0] == '':
             print("** class name missing **")
-        elif line not in storage.classes:
+        elif args[0] not in storage.classes:
             print("** class doesn't exist **")
         else:
-            the_class = storage.classes[line]
+            the_class = storage.classes[args[0]]
             ins = the_class()
+            params = args[1:]
+            for i in range(len(params)):
+                param = params[i].split('=')
+                key = param[0]
+                value = param[1]
+                value = value.replace('_', ' ')
+                if key in the_class.__dict__:
+                    attr_type = type(getattr(the_class, key))
+                    value = attr_type(value)
+                    setattr(ins, key, value)
             ins.save()
             print(ins.id)
 
