@@ -1,12 +1,14 @@
 #!/usr/bin/python3
 """ User class """
-from models.base_model import BaseModel
+from sqlalchemy import Column, String, Integer
+from models.base_model import BaseModel, Base
 
 
-class User(BaseModel):
+class User(BaseModel, Base):
     """ class User that inherits from BaseModel """
+    __tablename__ = 'users'
 
-    email = ""
-    password = ""
-    first_name = ""
-    last_name = ""
+    email = Column(String(128), nullable=False)
+    password = Column(String(128), nullable=False)
+    first_name = Column(String(128), nullable=False)
+    last_name = Column(String(128), nullable=False)
