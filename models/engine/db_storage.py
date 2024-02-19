@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.ext.declarative import declarative_base
 from os import getenv
-from models.base_model import Base
+from models.base_model import BaseModel, Base
 from models.user import User
 from models.state import State
 from models.city import City
@@ -17,6 +17,15 @@ class DBStorage:
     """ The storage engine for SQLAlchemy """
     __engine = None
     __session = None
+    classes = {
+            'BaseModel': BaseModel,
+            'User': User,
+            'Place': Place,
+            'State': State,
+            'City': City,
+            'Amenity': Amenity,
+            'Review': Review
+            }
 
     def __init__(self):
         """ Creates the MySQL engine

@@ -15,11 +15,16 @@ class State(BaseModel, Base):
     cities = relationship("City", cascade="all, delete-orphan",
                           backref="state")
 
-    @property
-    def cities(self):
-        """Getter attribute that returns the list of City instances"""
-        city_list = []
-        for city in models.storage.all(City).values():
-            if city.state_id == self.id:
-                city_list.append(city)
-        return city_list
+    def __init__(self, *args, **kwargs):
+        """ initialisation """
+        super().__init__(*args, **kwargs)
+
+    if models.storage_type != "db":
+        @property
+        def cities(self):
+            """Getter attribute that returns the list of City instances"""
+            city_list = []
+            for city in models.storage.all(City).values():
+                if city.state_id == self.id:
+                    city_list.append(city)
+            return city_list
