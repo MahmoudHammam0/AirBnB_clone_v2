@@ -3,6 +3,7 @@
 import cmd
 from models.base_model import BaseModel
 from models import storage
+from sqlalchemy import Column, String, Integer, Float
 
 
 class HBNBCommand(cmd.Cmd):
@@ -40,7 +41,16 @@ class HBNBCommand(cmd.Cmd):
                 value = value.replace('_', ' ')
                 if key in the_class.__dict__:
                     attr_type = type(getattr(the_class, key))
-                    value = attr_type(value)
+                    if attr_type in [int, float, str]:
+                        value = attr_type(value)
+                    else:
+                        attr_type = getattr(the_class, key).type
+                        if attr_type is Integer:
+                            value = int(value)
+                        elif attr_type is String:
+                            value = str(value)
+                        elif attr_type is Float:
+                            value = float(value)
                     setattr(ins, key, value)
             ins.save()
             print(ins.id)
