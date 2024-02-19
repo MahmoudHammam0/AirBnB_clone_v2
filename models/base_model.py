@@ -32,6 +32,8 @@ class BaseModel:
 
     def __str__(self):
         '''defines how the should be represented as a string'''
+        if '_sa_instance_state' in self.__dict__:
+            del self.__dict__['_sa_instance_state']
         return ("[{}] ({}) {}".format(self.__class__.__name__,
                                       self.id, self.__dict__))
 
