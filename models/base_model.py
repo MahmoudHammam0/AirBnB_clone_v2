@@ -1,12 +1,20 @@
 #!/usr/bin/python3
 '''BaseModel class module'''
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, String, DateTime
 import datetime
 import uuid
 import models
 
+Base = declarative_base()
+
 
 class BaseModel:
     '''defines all common attributes/methods for other classes'''
+    id = Column(String(60), unique=True, nullable=False, primary_key=True)
+    created_at = Column(DateTime, nullable=False, default=(datetime.datetime.utcnow()))
+    updated_at = Column(DateTime, nullable=False, default=(datetime.datetime.utcnow()))
+
     def __init__(self, *args, **kwargs):
         '''initialization'''
         if kwargs != {}:
@@ -21,7 +29,6 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.datetime.now()
             self.updated_at = datetime.datetime.now()
-            models.storage.new(self)
 
     def __str__(self):
         '''defines how the should be represented as a string'''
@@ -31,6 +38,7 @@ class BaseModel:
     def save(self):
         '''updates the attribute updated_at with the current datetime'''
         self.updated_at = datetime.datetime.now()
+        models.storage.new(self)
         models.storage.save()
 
     def to_dict(self):
@@ -39,4 +47,10 @@ class BaseModel:
         res['created_at'] = res['created_at'].isoformat()
         res['updated_at'] = res['updated_at'].isoformat()
         res['__class__'] = self.__class__.__name__
+        if '_sa_instance_state' in res:
+            del res['_sa_instance_state']
         return res
+
+    def delete(self):
+        '''deletes the current instance from the storage'''
+        models.storage.delete(self)

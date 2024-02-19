@@ -25,7 +25,7 @@ class HBNBCommand(cmd.Cmd):
         '''Creates a new instance of BaseModel, saves it (to the JSON file)'''
         line = line.replace('"','')
         args = line.split()
-        if args[0] == '':
+        if not args:
             print("** class name missing **")
         elif args[0] not in storage.classes:
             print("** class doesn't exist **")
