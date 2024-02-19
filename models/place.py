@@ -2,6 +2,7 @@
 """ Place module """
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, Integer, Float, ForeignKey
+from sqlalchemy.orm import relationship
 
 
 class Place(BaseModel, Base):
@@ -19,3 +20,15 @@ class Place(BaseModel, Base):
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
     amenity_ids = []
+    reviews = relationship("Review", cascade="all, delete-orphan",
+                           backref='place')
+
+    @property
+    def reviews(self):
+        '''getter method for reviews relationship with place'''
+        objects = storage.all()
+        res_list = []
+        for key, value in objects.items():
+            if value.place_id == self.id:
+                res_list.append(value)
+        return res_list
