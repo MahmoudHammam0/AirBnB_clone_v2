@@ -50,7 +50,7 @@ class DBStorage:
         objects_dict = {}
 
         if cls is None:
-            classes_to_query = [User, State, City]
+            classes_to_query = [User, State, City, Place]
         else:
             classes_to_query = [cls]
 
