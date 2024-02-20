@@ -21,7 +21,6 @@ class Place(BaseModel, Base):
     price_by_night = Column(Integer, nullable=False, default=0)
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
-    amenity_ids = []
     reviews = relationship("Review", cascade="all, delete-orphan",
                            backref='place')
     place_amenity = Table('place_amenity', Base.metadata,
@@ -33,6 +32,11 @@ class Place(BaseModel, Base):
                                    primary_key=True, nullable=False))
     amenities = relationship("Amenity", secondary='place_amenity',
                              viewonly=False, backref="places")
+
+    def __init__(self, *args, **kwargs):
+        '''Place initialization'''
+        super().__init__(*args, **kwargs)
+        self.amenity_ids = []
 
     @property
     def reviews(self):
