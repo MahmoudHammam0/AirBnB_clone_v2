@@ -54,8 +54,8 @@ class Place(BaseModel, Base):
             objects = storage.all(Amenity)
             the_list = []
             for obj in objects.values():
-                if obj.place_id == self.id:
-                    the_list.append(obj)
+                if obj.id in self.amenity_ids:
+                    the_list.append(obj.id)
             return the_list
 
         @amenities.setter
