@@ -7,16 +7,18 @@ from models.amenity import Amenity
 from os import getenv
 import models
 
+place_amenity = Table('place_amenity', Base.metadata,
+                      Column('place_id', String(60),
+                             ForeignKey('places.id'), primary_key=True,
+                             nullable=False),
+                      Column('amenity_id', String(60),
+                             ForeignKey('amenities.id'), primary_key=True,
+                             nullable=False))
+
 
 class Place(BaseModel, Base):
     """ Place class that inherits from BaseModel """
-    place_amenity = Table('place_amenity', Base.metadata,
-                          Column('place_id', String(60),
-                                 ForeignKey('places.id'), primary_key=True,
-                                 nullable=False),
-                          Column('amenity_id', String(60),
-                                 ForeignKey('amenities.id'), primary_key=True,
-                                 nullable=False))
+    
     __tablename__ = 'places'
 
     city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
@@ -33,7 +35,7 @@ class Place(BaseModel, Base):
     reviews = relationship("Review", cascade="all, delete-orphan",
                            backref='place')
     amenities = relationship("Amenity", secondary='place_amenity',
-                             viewonly=False, backref='places')
+                             viewonly=False, backref='place_amenities')
 
     @property
     def reviews(self):
