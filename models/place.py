@@ -31,7 +31,6 @@ class Place(BaseModel, Base):
     price_by_night = Column(Integer, nullable=False, default=0)
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
-    amenity_ids = []
     reviews = relationship("Review", cascade="all, delete-orphan",
                            backref='place')
     amenities = relationship("Amenity", secondary='place_amenity',
@@ -46,19 +45,14 @@ class Place(BaseModel, Base):
             if value.place_id == self.id:
                 res_list.append(value)
         return res_list
-
+    
     @property
     def amenities(self):
-        '''getter method for amenities'''
-        objects = storage.all(Amenity)
-        the_list = []
-        for obj in objects.values():
-            if obj.id in self.amenity_ids:
-                the_list.append(obj)
-        return the_list
+        """Getter method for amenities"""
+        return [amenity for amenity in self.amenities]
 
     @amenities.setter
     def amenities(self, obj):
-        '''setter method for amenities'''
+        """Setter method for amenities"""
         if isinstance(obj, Amenity):
-            self.amenity_ids.append(obj.id)
+            self.amenities.append(obj)
