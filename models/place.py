@@ -50,12 +50,6 @@ class Place(BaseModel, Base):
         objs = storage.all()
         amen_list = []
         for key, value in objs.items():
-            if (value.id in self.amenity_ids):
+            if (value.place_id in self.amenity_ids):
                 amen_list.append(value)
         return amen_list
-
-    @amenities.setter
-    def amenities(self, obj):
-        '''setter method to populate amenity_ids attribute'''
-        if isinstance(obj, Amenity):
-            self.amenity_ids.append(obj.id)
