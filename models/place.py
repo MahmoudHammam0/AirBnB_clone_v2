@@ -45,14 +45,19 @@ class Place(BaseModel, Base):
             if value.place_id == self.id:
                 res_list.append(value)
         return res_list
-    
+
     @property
     def amenities(self):
-        """Getter method for amenities"""
-        return [amenity for amenity in self.amenities]
+        '''getter method for amenities'''
+        objects = storage.all(Amenity)
+        the_list = []
+        for obj in objects.values():
+            if obj.id in self.amenity_ids:
+                the_list.append(obj)
+        return the_list
 
     @amenities.setter
     def amenities(self, obj):
-        """Setter method for amenities"""
+        '''setter method for amenities'''
         if isinstance(obj, Amenity):
-            self.amenities.append(obj)
+            self.amenity_ids.append(obj.id)
