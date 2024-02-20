@@ -47,7 +47,7 @@ class Place(BaseModel, Base):
     @property
     def amenities(self):
         '''getter method for amenities'''
-        objs = models.storage.all()
+        objs = storage.all()
         amen_list = []
         for key, value in objs.items():
             if (value.id in self.amenity_ids):
