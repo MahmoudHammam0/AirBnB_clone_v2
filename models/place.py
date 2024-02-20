@@ -1,8 +1,10 @@
 #!/usr/bin/python3
 """ Place module """
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String, Integer, Float, ForeignKey
+from sqlalchemy import Column, String, Integer, Float, ForeignKey, Table
 from sqlalchemy.orm import relationship
+from models.amenity import Amenity
+import models
 
 
 class Place(BaseModel, Base):
@@ -22,6 +24,15 @@ class Place(BaseModel, Base):
     amenity_ids = []
     reviews = relationship("Review", cascade="all, delete-orphan",
                            backref='place')
+    place_amenities = Table('place_amenity', Base.metadata,
+                            Column('place_id',
+                                   String(60), ForeignKey('places.id'),
+                                   primary_key=True, nullable=False),
+                            Column('amenity_id',
+                                   String(60), ForeignKey('amenities.id'),
+                                   primary_key=True, nullable=False))
+    amenities = relationship("Amenity", secondary='place_amenity',
+                             viewonly=False)
 
     @property
     def reviews(self):
@@ -32,3 +43,19 @@ class Place(BaseModel, Base):
             if value.place_id == self.id:
                 res_list.append(value)
         return res_list
+
+    @property
+    def amenities(self):
+        '''getter method for amenities'''
+        objs = models.storage.all()
+        amen_list = []
+        for key, value in objs.items():
+            if (value.id in self.amenity_ids):
+                amen_list.append(value)
+        return amen_list
+
+    @amenities.setter
+    def amenities(self, obj):
+        '''setter method to populate amenity_ids attribute'''
+        if isinstance(obj, Amenity):
+            self.amenity_ids.append(obj.id)
