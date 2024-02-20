@@ -50,6 +50,6 @@ class Place(BaseModel, Base):
         objs = storage.all()
         amen_list = []
         for key, value in objs.items():
-            if (value.place_id in self.amenity_ids):
+            if (value.place_id == self.id):
                 amen_list.append(value)
         return amen_list
