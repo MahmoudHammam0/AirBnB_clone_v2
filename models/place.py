@@ -34,7 +34,7 @@ class Place(BaseModel, Base):
     amenity_ids = []
     reviews = relationship("Review", cascade="all, delete-orphan",
                            backref='place')
-    amenities = relationship("Amenity", secondary=place_amenity,
+    amenities = relationship("Amenity", secondary='place_amenity',
                              viewonly=False, backref='places')
 
     @property
@@ -47,18 +47,19 @@ class Place(BaseModel, Base):
                 res_list.append(value)
         return res_list
 
-    @property
-    def amenities(self):
-        '''getter method for amenities'''
-        objects = storage.all(Amenity)
-        the_list = []
-        for obj in objects.values():
-            if obj.place_id == self.id:
-                the_list.append(obj)
-        return the_list
+    if getenv('HBNB_TYPE_STORAGE') != 'db':
+        @property
+        def amenities(self):
+            '''getter method for amenities'''
+            objects = storage.all(Amenity)
+            the_list = []
+            for obj in objects.values():
+                if obj.id in self.amenity_ids:
+                    the_list.append(obj)
+            return the_list
 
-    @amenities.setter
-    def amenities(self, obj):
-        '''setter method for amenities'''
-        if isinstance(obj, Amenity):
-            self.amenity_ids.append(obj.id)
+        @amenities.setter
+        def amenities(self, obj):
+            '''setter method for amenities'''
+            if isinstance(obj, Amenity):
+                self.amenity_ids.append(obj.id)
