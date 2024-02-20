@@ -50,12 +50,8 @@ class Place(BaseModel, Base):
     @property
     def amenities(self):
         '''getter method for amenities'''
-        objects = storage.all(Amenity)
-        the_list = []
-        for obj in objects.values():
-            if obj.id in self.amenity_ids:
-                the_list.append(obj)
-        return the_list
+        return [storage.all(Amenity).get(amenity_id)
+                for amenity_id in self.amenity_ids]
 
     @amenities.setter
     def amenities(self, obj):
