@@ -32,7 +32,7 @@ class Place(BaseModel, Base):
                                    String(60), ForeignKey('amenities.id'),
                                    primary_key=True, nullable=False))
     amenities = relationship("Amenity", secondary='place_amenity',
-                             viewonly=False)
+                             viewonly=False, backref='place_amenities')
 
     @property
     def reviews(self):
