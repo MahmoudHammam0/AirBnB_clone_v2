@@ -35,6 +35,7 @@ class Place(BaseModel, Base):
                            backref='place')
     amenities = relationship("Amenity", secondary='place_amenity',
                              viewonly=False, backref='place_amenities')
+    amenity_ids = []
 
     @property
     def reviews(self):
@@ -47,8 +48,6 @@ class Place(BaseModel, Base):
         return res_list
 
     if getenv('HBNB_TYPE_STORAGE') != 'db':
-        amenity_ids = []
-
         @property
         def amenities(self):
             '''getter method for amenities'''
