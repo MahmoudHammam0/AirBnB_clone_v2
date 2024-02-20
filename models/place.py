@@ -31,7 +31,6 @@ class Place(BaseModel, Base):
     price_by_night = Column(Integer, nullable=False, default=0)
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
-    amenity_ids = []
     reviews = relationship("Review", cascade="all, delete-orphan",
                            backref='place')
     amenities = relationship("Amenity", secondary='place_amenity',
@@ -48,6 +47,8 @@ class Place(BaseModel, Base):
         return res_list
 
     if getenv('HBNB_TYPE_STORAGE') != 'db':
+        amenity_ids = []
+
         @property
         def amenities(self):
             '''getter method for amenities'''
