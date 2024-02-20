@@ -3,11 +3,18 @@
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, Integer, Float, ForeignKey, Table
 from sqlalchemy.orm import relationship
+from models.amenity import Amenity
+from os import getenv
 import models
 
 
 class Place(BaseModel, Base):
     """ Place class that inherits from BaseModel """
+    place_amenity = Table('place_amenity', Base.metadata,
+                          Column('place_id', String(60),
+                                 ForeignKey('places.id'), nullable=False),
+                          Column('amenity_id', String(60),
+                                 ForeignKey('amenities.id'), nullable=False))
     __tablename__ = 'places'
 
     city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
@@ -20,8 +27,11 @@ class Place(BaseModel, Base):
     price_by_night = Column(Integer, nullable=False, default=0)
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
+    amenity_ids = []
     reviews = relationship("Review", cascade="all, delete-orphan",
                            backref='place')
+    amenities = relationship("Amenity", secondary='place_amenity',
+                             viewonly=False, backref='places')
 
     @property
     def reviews(self):
@@ -32,3 +42,19 @@ class Place(BaseModel, Base):
             if value.place_id == self.id:
                 res_list.append(value)
         return res_list
+
+    @property
+    def amenities(self):
+        '''getter method for amenities'''
+        objects = storage.all(Amenity)
+        the_list = []
+        for obj in objects.values():
+            if obj.id in self.amenity_ids:
+                the_list.append(obj)
+        return the_list
+
+    @amenities.setter
+    def amenities(self, obj):
+        '''setter method for amenities'''
+        if isinstance(obj, Amenity):
+            self.amenity_ids.append(obj.id)
