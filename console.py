@@ -43,6 +43,14 @@ class HBNBCommand(cmd.Cmd):
                     attr_type = type(getattr(the_class, key))
                     if attr_type in [int, float, str]:
                         value = attr_type(value)
+                    else:
+                        attr_type = getattr(the_class, key).type
+                        if isinstance(attr_type, Integer):
+                            value = int(value)
+                        elif isinstance(attr_type, Float):
+                            value = float(value)
+                        elif isinstance(attr_type, String):
+                            value = str(value)
                     setattr(ins, key, value)
             ins.save()
             print(ins.id)
