@@ -57,9 +57,3 @@ class Place(BaseModel, Base):
                 if obj.id in self.amenity_ids:
                     the_list.append(obj)
             return the_list
-
-        @amenities.setter
-        def amenities(self, obj):
-            '''setter method for amenities'''
-            if isinstance(obj, Amenity):
-                self.amenity_ids.append(obj.id)
