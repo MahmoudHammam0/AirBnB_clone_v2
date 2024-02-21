@@ -44,7 +44,6 @@ class HBNBCommand(cmd.Cmd):
                     if attr_type in [int, float, str]:
                         value = attr_type(value)
                     else:
-                        attr_type = getattr(the_class, key).type
                         if isinstance(attr_type, Integer):
                             value = int(value)
                         elif isinstance(attr_type, Float):
