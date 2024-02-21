@@ -1,4 +1,4 @@
-# 0x00. AirBnB clone - The console
+# 0x02. AirBnB clone - MySQL
 
 ## Description
 This project is an implementation of the first step towards building an AirBnB clone. The main focus is on creating a command interpreter to manage AirBnB objects. The project involves the use of Python, Object-Oriented Programming (OOP), and concepts like JSON serialization, deserialization, and unit testing.
