@@ -1,7 +1,7 @@
 # 0x02. AirBnB clone - MySQL
 
 ## Description
-This project is an implementation of the first step towards building an AirBnB clone. The main focus is on creating a command interpreter to manage AirBnB objects. The project involves the use of Python, Object-Oriented Programming (OOP), and concepts like JSON serialization, deserialization, and unit testing.
+This project marks the second phase of developing an AirBnB clone, now incorporating MySQL as the database backend. The primary focus is on leveraging Python, Object-Oriented Programming (OOP), SQL, and the SQLAlchemy ORM to create a robust and scalable system. This project is a collaboration between Mahmoud Hammam, and Youssef El Ghamour.
 
 ## Command Interpreter
 The command interpreter allows users to interact with the AirBnB objects by performing various operations, including creating new objects, retrieving objects from files or databases, updating attributes, and more.
