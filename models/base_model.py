@@ -5,6 +5,7 @@ from sqlalchemy import Column, Integer, String, DateTime
 import datetime
 import uuid
 import models
+from os import getenv
 
 Base = declarative_base()
 
@@ -25,6 +26,13 @@ class BaseModel:
                     self.created_at = datetime.datetime.fromisoformat(value)
                 if key == 'updated_at':
                     self.updated_at = datetime.datetime.fromisoformat(value)
+            if getenv('HBNB_TYPE_STORAGE') == 'db':
+                if 'id' not in kwargs.keys():
+                    setattr(self, 'id', str(uuid.uuid4()))
+                if 'created_at' not in kwargs.keys():
+                    setattr(self, 'created_at', datetime.datetime.now())
+                if 'updated_at' not in kwargs.keys():
+                    setattr(self, 'updated_at', datetime.datetime.now())
         else:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.datetime.now()
