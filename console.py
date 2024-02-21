@@ -24,7 +24,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, line):
         '''Creates a new instance of BaseModel, saves it (to the JSON file)'''
-        line = line.replace('"','')
+        line = line.replace('"', '')
+        line = line.replace('(', ' ').replace(')', ' ').replace(',', '')
         args = line.split()
         if not args:
             print("** class name missing **")
