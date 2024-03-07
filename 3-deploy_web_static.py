@@ -2,6 +2,7 @@
 '''Full deployment module'''
 do_pack = __import__('1-pack_web_static').do_pack
 do_deploy = __import__('2-do_deploy_web_static').do_deploy
+from fabric.api import env
 
 
 env.hosts = ["ubuntu@54.197.110.80", "ubuntu@100.24.236.222"]
