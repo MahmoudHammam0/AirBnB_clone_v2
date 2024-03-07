@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#sets up your web servers for the deployment
+#sets up my web servers for the deployment
 apt-get update
 apt-get -y install nginx
 sudo mkdir -p /data/web_static/releases/test/
