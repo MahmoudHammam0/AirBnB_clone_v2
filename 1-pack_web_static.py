@@ -11,3 +11,4 @@ def do_pack():
     filename = "versions/web_static_" + time_str + ".tgz"
     local('mkdir -p versions/')
     local('tar -cvzf {} web_static'.format(filename))
+    return filename
