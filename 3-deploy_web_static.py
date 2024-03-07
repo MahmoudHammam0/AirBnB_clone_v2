@@ -1,47 +1,10 @@
 #!/usr/bin/python3
 '''Full deployment module'''
-import os
-from fabric.api import put, run, env, local
-from datetime import datetime
+do_pack = __import__('1-pack_web_static').do_pack
+do_deploy = __import__('2-do_deploy_web_static').do_deploy
 
 
 env.hosts = ["ubuntu@54.197.110.80", "ubuntu@100.24.236.222"]
-
-
-def do_pack():
-    '''packs the content of web_static into a tgz archive'''
-    time = datetime.now()
-    time_str = time.strftime("%Y%m%d%H%M%S")
-    try:
-        filename = "versions/web_static_" + time_str + ".tgz"
-        local('mkdir -p versions/')
-        local('tar -cvzf {} web_static'.format(filename))
-        return filename
-    except Exception:
-        return None
-
-
-def do_deploy(archive_path):
-    '''distributes an archive to your web servers'''
-    if os.path.exists(archive_path):
-        pass
-    else:
-        return False
-    tgz_file = archive_path.split('/')[1]
-    filename = tgz_file.split('.')[0]
-    loc = '/data/web_static/releases/'
-    try:
-        put(archive_path, "/tmp/")
-        run('mkdir -p {}{}/'.format(loc, filename))
-        run('tar -xzf /tmp/{} -C {}{}/'.format(tgz_file, loc, filename))
-        run('rm /tmp/{}'.format(tgz_file))
-        run('mv {0}{1}/web_static/* {0}{1}/'.format(loc, filename))
-        run('rm -rf {}{}/web_static'.format(loc, filename))
-        run('rm -rf /data/web_static/current')
-        run('ln -s {}{}/ /data/web_static/current'.format(loc, filename))
-        return True
-    except Exception:
-        return False
 
 
 def deploy():
@@ -49,4 +12,5 @@ def deploy():
     res = do_pack()
     if res is None:
         return False
-    return do_deploy(res)
+    end = do_dep(res)
+    return end
