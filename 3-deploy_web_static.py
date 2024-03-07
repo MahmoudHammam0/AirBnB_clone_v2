@@ -10,6 +10,7 @@ env.hosts = ["ubuntu@54.197.110.80", "ubuntu@100.24.236.222"]
 
 
 def deploy():
+    '''calls the two functions of do_pack and do_deploy'''
     res = do_pack()
     if os.path.exists(res):
         pass
