@@ -12,5 +12,5 @@ def deploy():
     res = do_pack()
     if res is None:
         return False
-    end = do_dep(res)
+    end = do_deploy(res)
     return end
