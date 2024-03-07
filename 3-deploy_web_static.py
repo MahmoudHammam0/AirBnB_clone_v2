@@ -6,10 +6,13 @@ from datetime import datetime
 
 
 env.hosts = ["ubuntu@54.197.110.80", "ubuntu@100.24.236.222"]
+env.archive = None
 
 
 def do_pack():
     '''packs the content of web_static into a tgz archive'''
+    if env.archive:
+        return env.archive
     try:
         time = datetime.now()
         time_str = time.strftime("%Y%m%d%H%M%S")
@@ -17,6 +20,7 @@ def do_pack():
         if os.path.isdir('versions') is False:
             local('mkdir -p versions/')
         local('tar -cvzf {} web_static'.format(filename))
+        env.archive = filename
         return filename
     except Exception:
         return None
