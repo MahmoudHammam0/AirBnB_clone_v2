@@ -1,14 +1,14 @@
-# 0x00. AirBnB clone - The console
+# 0x02. AirBnB clone - MySQL
 
 ## Description
-This project is an implementation of the first step towards building an AirBnB clone. The main focus is on creating a command interpreter to manage AirBnB objects. The project involves the use of Python, Object-Oriented Programming (OOP), and concepts like JSON serialization, deserialization, and unit testing.
+This project marks the second phase of developing an AirBnB clone, now incorporating MySQL as the database backend. The primary focus is on leveraging Python, Object-Oriented Programming (OOP), SQL, and the SQLAlchemy ORM to create a robust and scalable system. This project is a collaboration between Mahmoud Hammam, and Youssef El Ghamour.
 
 ## Command Interpreter
 The command interpreter allows users to interact with the AirBnB objects by performing various operations, including creating new objects, retrieving objects from files or databases, updating attributes, and more.
 
 ## How to start it:
-* Clone this repository: `git clone "https://github.com/MahmoudHammam0/AirBnB_clone.git"`
-* Access the AirBnb directory: `cd AirBnB_clone`
+* Clone this repository: `git clone "https://github.com/MahmoudHammam0/AirBnB_clone_v2.git"`
+* Access the AirBnb directory: `cd AirBnB_clone_v2`
 * Run hbnb (interactively): `./console` and enter command
 * Run hbnb (non-interactively): `echo "<command>" | ./console.py`
 
@@ -71,6 +71,7 @@ $
   - Directory containing storage classes for the JSON serialization and deserialization.
 
     ##### `file_storage.py` - Serializes instances to a JSON file and deserializes JSON file to instances
+    ##### `db_storage.py` - Engine for MySQL database: manages sessions, and provides methods for querying, adding, saving, deleting objects, and reloading.
 
 #### `tests/`
 - Directory for unit tests.
