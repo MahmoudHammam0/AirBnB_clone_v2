@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 #sets up my web servers for the deployment
-apt-get update
-apt-get -y install nginx
+sudo apt-get update
+sudo apt-get -y install nginx
 sudo mkdir -p /data/web_static/releases/test/
 sudo mkdir -p /data/web_static/shared/
 sudo chown -HR ubuntu:ubuntu /data/
 echo "<html>
-	<head>
-	</head>
-	<body>
-		Holberton School
-	</body>
+  <head>
+  </head>
+  <body>
+    Holberton School
+  </body>
 </html>" > /data/web_static/releases/test/index.html
 ln -sf /data/web_static/releases/test/ /data/web_static/current
 echo "
