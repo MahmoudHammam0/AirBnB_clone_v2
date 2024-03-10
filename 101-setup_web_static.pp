@@ -3,7 +3,7 @@
   provider => shell,
 }
 
--> exec {''sudo apt-get -y install nginx:
+-> exec {'sudo apt-get -y install nginx':
   provider => shell,
 }
 
@@ -61,7 +61,7 @@
 
 -> exec {'/etc/nginx/sites-available/default':
   ensure => 'present',
-  command  => 'sudo sed -i '/listen 80 default_server/a location /hbnb_static { alias /data/web_static/current/;}' /etc/nginx/sites-enabled/default',
+  command  => "sudo sed -i '/listen 80 default_server/a location /hbnb_static { alias /data/web_static/current/;} /etc/nginx/sites-enabled/default",
 }
 
 exec {'restart Nginx':
