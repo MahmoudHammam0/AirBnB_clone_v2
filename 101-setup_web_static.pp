@@ -1,5 +1,5 @@
 #sets up your web servers for the deployment
--> exec {'sudo apt-get -y update'':
+-> exec {'sudo apt-get -y update':
   provider => shell,
 }
 
