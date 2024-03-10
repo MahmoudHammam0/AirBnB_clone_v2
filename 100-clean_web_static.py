@@ -23,5 +23,5 @@ def do_clean(number=0):
         for f in files:
             if "web" in f:
                 the_list.append(f)
-        for f in the_list:
+        for f in the_list[:-number]:
             run("rm -rf ./{}".format(f))
