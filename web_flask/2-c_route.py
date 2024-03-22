@@ -17,6 +17,7 @@ def hbnb():
     'HBNB home'
     return 'HBNB'
 
+
 @app.route('/c/<text>', strict_slashes=False)
 def C(text):
     'C + text'
