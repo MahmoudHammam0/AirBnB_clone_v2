@@ -21,8 +21,25 @@ def hbnb():
 @app.route('/c/<text>', strict_slashes=False)
 def C(text):
     'C + text'
-    text = text.replace('_', ' ')
-    return f'C {text}'
+    new = ""
+    for char in text:
+        if char == '_':
+            new += " "
+            continue
+        new += char
+    return f'C {new}'
+
+
+@app.route('/python/<text>', strict_slashes=False)
+def python(text='is cool'):
+    'python + text'
+    new = ""
+    for char in text:
+        if char == "_":
+            new += " "
+        else:
+            new += char
+    return f'Python {new}'
 
 
 if __name__ == '__main__':
