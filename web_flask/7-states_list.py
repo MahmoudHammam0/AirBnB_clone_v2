@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 'List of states module'
-from flask import Flask, render_template
+from flask import Flask, render_template, g
 from models import storage
 from models.state import State
 
@@ -15,10 +15,18 @@ def list_states():
     return render_template('7-states_list.html', states_list=states_list)
 
 
+def get_db():
+    if 'storage' not in g:
+        g.storage = storage
+    return g.storage
+
+
 @app.teardown_appcontext
 def session_close(exception):
     'close sql alchemy session after each request'
-    storage.close()
+    storage = g.pop('storage', None)
+    if storage is not None:
+        storage.close()
 
 
 if __name__ == "__main__":
