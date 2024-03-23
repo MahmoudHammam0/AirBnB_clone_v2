@@ -84,4 +84,4 @@ class DBStorage:
 
     def close(self):
         'tell our registry to dispose of session'
-        self.__session.remove()
+        self.__session.close()
