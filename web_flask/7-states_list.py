@@ -10,7 +10,10 @@ states = storage.all(State)
 @app.route('/states_list', strict_slashes=False)
 def list_states():
     'display list of states'
-    return render_template('7-states_list.html', states=states)
+    states_list = []
+    for key, value in states.items():
+        states_list.append(value)
+    return render_template('7-states_list.html', states_list=states_list)
 
 
 @app.teardown_appcontext
