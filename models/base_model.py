@@ -18,6 +18,9 @@ class BaseModel:
 
     def __init__(self, *args, **kwargs):
         '''initialization'''
+        self.id = str(uuid.uuid4())
+        self.created_at = datetime.datetime.now()
+        self.updated_at = datetime.datetime.now()
         if kwargs != {}:
             for key, value in kwargs.items():
                 if key != '__class__':
@@ -33,15 +36,9 @@ class BaseModel:
                     setattr(self, 'created_at', datetime.datetime.now())
                 if 'updated_at' not in kwargs.keys():
                     setattr(self, 'updated_at', datetime.datetime.now())
-        else:
-            self.id = str(uuid.uuid4())
-            self.created_at = datetime.datetime.now()
-            self.updated_at = datetime.datetime.now()
-
+    
     def __str__(self):
         '''defines how the should be represented as a string'''
-        if '_sa_instance_state' in self.__dict__:
-            del self.__dict__['_sa_instance_state']
         return ("[{}] ({}) {}".format(self.__class__.__name__,
                                       self.id, self.__dict__))
 
