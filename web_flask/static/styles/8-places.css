@@ -121,9 +121,11 @@ section.filters button:hover {
 
 .Places h2 {
 	font-size: 30px;
-	margin: 0 auto;
 	text-align: left;
 	width: 300px;
+	float: left;
+	margin-top: -2px;
+	margin-bottom: -30px;
 }
 
 .Places li:last-child {
@@ -139,9 +141,9 @@ section.filters button:hover {
 	display: inline-block;
 	font-size: 30px;
 	padding: 25px 10px 0px 10px;
-	margin-left: 250px;
-	margin-right: -50px;
-	margin-top: -40px;
+	margin-right: -5px;
+	margin-top: -14px;
+	margin-bottom: 25px;
 }
 
 .Places .information {
@@ -149,6 +151,7 @@ section.filters button:hover {
 	border-top: 1px solid #DDDDDD;
 	border-bottom: 1px solid #DDDDDD;
 	margin-top: 10px;
+	display: block;
 }
 
 .information .max_guest {
