@@ -57,13 +57,31 @@
 							</div>
 							<div class="information">
 								<div class="max_guest">
+								{% if place.max_guest == 1 %}
+									{{ place.max_guest }} Guest
+								{% elif place.max_guest == 0 %}
+									{{ place.max_guest }} Guest
+								{% else %}
 									{{ place.max_guest }} Guests
+								{% endif %}
 								</div>
 								<div class="number_rooms">
-									{{ place.number_rooms }} room
+								{% if place.number_rooms == 1 %}
+									{{ place.number_rooms }} Room
+								{% elif place.number_rooms == 0 %}
+									{{ place.number_rooms }} Room
+								{% else %}
+									{{ place.number_rooms }} Rooms
+								{% endif %}
 								</div>
 								<div class="number_bathrooms">
-									{{ place.number_bathrooms }} bathroom
+								{% if place.number_bathrooms == 1 %}
+									{{ place.number_bathrooms }} Bathroom
+								{% elif place.number_bathrooms == 0 %}
+									{{ place.number_bathrooms }} Bathroom
+								{% else %}
+									{{ place.number_bathrooms }} Bathrooms
+								{% endif %}
 								</div>
 							</div>
 							<div class="user">
