@@ -67,7 +67,7 @@
 								</div>
 							</div>
 							<div class="user">
-								<strong>Owner</strong>: Jhon Lennon
+								<strong>Owner</strong>: {{ place.user.first_name }} {{ place.user.last_name }}
 							</div>
 							<div class="description">
 								{{ place.description | safe }}
